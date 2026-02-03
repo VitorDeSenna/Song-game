@@ -46,35 +46,249 @@
         // 🎯 EASY TO EDIT SECTION - MODIFY THESE VALUES!
         // ============================================================
 
-        // ADD OR REMOVE WORDS HERE - these are words players need to sing!
-        const SONG_WORDS = [
+        // UI TEXT FOR EACH LANGUAGE
+        const UI_TEXT = {
+            en: {
+                gameTitle: "🎵 Song Word",
+                gameSubtitle: "Sing a song with the word!",
+                selectLanguage: "Select Language",
+                selectDifficulty: "Select Difficulty",
+                startGame: "🎤 Start Game",
+                howToPlay: "How to Play:",
+                step1: "A word will appear and be spoken aloud",
+                step2: "Sing any song containing that word!",
+                step3: "Other players judge if you got it right",
+                step4: "Beat the timer to score points!",
+                wordsAvailable: "words available",
+                singASongWith: "Sing a song with:",
+                hearAgain: "🔊 Hear again",
+                skip: "⏭️ Skip",
+                gotIt: "✅ Got It!",
+                timesUp: "Time's Up!",
+                theWordWas: "The word was:",
+                findOnSpotify: "Find Songs on Spotify",
+                nextWord: "🎵 Next Word",
+                backToMenu: "🏠 Back to Menu",
+                easy: "Easy",
+                medium: "Medium",
+                hard: "Hard"
+            },
+            pt: {
+                gameTitle: "🎵 Palavra Cantada",
+                gameSubtitle: "Cante uma música com a palavra!",
+                selectLanguage: "Escolha o Idioma",
+                selectDifficulty: "Escolha a Dificuldade",
+                startGame: "🎤 Começar Jogo",
+                howToPlay: "Como Jogar:",
+                step1: "Uma palavra vai aparecer e ser falada",
+                step2: "Cante qualquer música com essa palavra!",
+                step3: "Os outros jogadores julgam se você acertou",
+                step4: "Vença o tempo para marcar pontos!",
+                wordsAvailable: "palavras disponíveis",
+                singASongWith: "Cante uma música com:",
+                hearAgain: "🔊 Ouvir de novo",
+                skip: "⏭️ Pular",
+                gotIt: "✅ Acertei!",
+                timesUp: "Tempo Esgotado!",
+                theWordWas: "A palavra era:",
+                findOnSpotify: "Buscar Músicas no Spotify",
+                nextWord: "🎵 Próxima Palavra",
+                backToMenu: "🏠 Voltar ao Menu",
+                easy: "Fácil",
+                medium: "Médio",
+                hard: "Difícil"
+            }
+        };
+
+        // ENGLISH WORDS - commonly found in song lyrics
+        const ENGLISH_WORDS = [
             // 💕 Emotions & Feelings
-            "love", "heart", "dream", "fire", "rain", "sunshine", "midnight", "forever",
+            "love", "heart", "dream", "fire", "sunshine", "midnight", "forever",
             "crazy", "beautiful", "lonely", "happy", "sad", "free", "wild", "sweet",
             "alive", "broken", "strong", "young", "lost", "found", "high", "low",
+            "perfect", "wrong", "right", "mad", "jealous", "proud", "scared", "brave",
+            "tired", "wicked", "numb", "blind", "drunk", "sober", "rich", "poor",
+            "cold", "warm", "hot", "cool", "sick", "healing", "grateful", "blessed",
             
             // 🏃 Actions
             "dance", "sing", "fly", "run", "cry", "smile", "kiss", "hold", "believe",
             "remember", "forget", "fall", "rise", "shine", "burn", "break", "stay",
             "wait", "walk", "jump", "touch", "feel", "breathe", "fight", "survive",
+            "pray", "play", "say", "call", "scream", "shout", "whisper", "talk",
+            "listen", "hear", "see", "watch", "look", "stare", "hide", "seek",
+            "chase", "catch", "throw", "give", "take", "steal", "borrow", "lend",
+            "push", "pull", "drag", "lift", "carry", "drop", "pick", "choose",
+            "start", "stop", "begin", "end", "open", "close", "lock", "knock",
+            "sleep", "wake", "rest", "work", "try", "fail", "win", "lose",
+            "learn", "teach", "know", "think", "wonder", "wish", "want", "need",
+            "miss", "meet", "leave", "arrive", "return", "escape", "rescue", "save",
             
             // 🌙 Nature & Time
             "moon", "star", "sky", "ocean", "river", "mountain", "summer", "winter",
             "night", "day", "morning", "yesterday", "tomorrow", "tonight", "sunrise",
             "sunset", "storm", "wind", "flower", "rain", "snow", "spring", "autumn",
+            "sun", "cloud", "fog", "mist", "rainbow", "thunder", "lightning", "earthquake",
+            "wave", "tide", "beach", "sand", "desert", "forest", "jungle", "garden",
+            "tree", "leaf", "grass", "rose", "daisy", "violet", "tulip", "sunflower",
+            "bird", "butterfly", "bee", "wolf", "lion", "tiger", "bear", "eagle",
+            "fish", "shark", "whale", "dolphin", "horse", "dog", "cat", "snake",
+            "minute", "hour", "week", "month", "year", "decade", "century", "moment",
             
             // 👫 Relationships & People
             "baby", "honey", "angel", "devil", "friend", "stranger", "lover", "hero",
             "girl", "boy", "man", "woman", "mother", "father", "child", "king", "queen",
+            "brother", "sister", "family", "husband", "wife", "partner", "soulmate", "twin",
+            "enemy", "rival", "boss", "worker", "teacher", "student", "doctor", "nurse",
+            "soldier", "warrior", "fighter", "dancer", "singer", "player", "dreamer", "believer",
+            "fool", "genius", "saint", "sinner", "victim", "survivor", "winner", "loser",
+            "prince", "princess", "knight", "cowboy", "outlaw", "criminal", "innocent", "guilty",
             
             // 🏠 Places & Things
             "home", "road", "city", "world", "heaven", "paradise", "diamond", "gold",
             "door", "window", "bridge", "street", "car", "train", "plane", "bed",
+            "house", "room", "wall", "floor", "roof", "stairs", "hall", "kitchen",
+            "church", "school", "hospital", "prison", "castle", "palace", "tower", "temple",
+            "bar", "club", "restaurant", "hotel", "motel", "station", "airport", "harbor",
+            "mirror", "picture", "photo", "letter", "book", "page", "pen", "paper",
+            "phone", "radio", "television", "computer", "camera", "guitar", "piano", "drum",
+            "ring", "chain", "crown", "sword", "gun", "bullet", "knife", "arrow",
+            "dress", "shirt", "shoes", "hat", "jacket", "jeans", "boots", "heels",
+            "bottle", "glass", "cup", "plate", "table", "chair", "couch", "pillow",
+            "candle", "lamp", "light", "shadow", "darkness", "flame", "smoke", "ash",
             
             // ✨ Abstract & Musical
             "time", "life", "soul", "magic", "destiny", "truth", "hope", "faith",
-            "glory", "power", "music", "rhythm", "melody", "thunder", "lightning",
-            "money", "party", "game", "story", "secret", "promise", "chance", "change"
+            "glory", "power", "music", "rhythm", "melody", "beat", "sound", "silence",
+            "money", "party", "game", "story", "secret", "promise", "chance", "change",
+            "freedom", "peace", "war", "battle", "victory", "defeat", "struggle", "triumph",
+            "fear", "courage", "strength", "weakness", "pride", "shame", "guilt", "regret",
+            "memory", "future", "past", "present", "history", "mystery", "fantasy", "reality",
+            "luck", "fate", "karma", "blessing", "curse", "miracle", "wonder", "surprise",
+            "pleasure", "pain", "joy", "sorrow", "anger", "calm", "chaos", "order",
+            "beauty", "ugly", "grace", "style", "fashion", "art", "color", "shape",
+            "word", "voice", "song", "lyric", "verse", "chorus", "bridge", "hook",
+            "vibe", "energy", "spirit", "ghost", "zombie", "vampire", "monster", "alien",
+            
+            // 🎉 Party & Fun
+            "tonight", "weekend", "holiday", "birthday", "wedding", "funeral", "graduation", "celebration",
+            "drink", "wine", "beer", "champagne", "vodka", "whiskey", "tequila", "cocktail",
+            "drug", "pill", "smoke", "cigarette", "addiction", "obsession", "temptation", "desire",
+            "sex", "body", "lips", "eyes", "hands", "arms", "legs", "skin",
+            "sweat", "tears", "blood", "bone", "muscle", "nerve", "vein", "pulse",
+            
+            // 🌍 Culture & Society
+            "America", "California", "Hollywood", "Broadway", "London", "Paris", "Tokyo", "Miami",
+            "dollar", "cash", "credit", "debt", "price", "cost", "value", "worth",
+            "fame", "fortune", "success", "failure", "dream", "nightmare", "vision", "illusion",
+            "law", "crime", "justice", "freedom", "rights", "wrong", "good", "evil",
+            "God", "Jesus", "Lord", "prayer", "sin", "forgiveness", "redemption", "salvation",
+            "holiday", "Christmas", "summer", "weekend", "Friday", "Saturday", "Sunday", "Monday"
+        ];
+
+        // BRAZILIAN PORTUGUESE WORDS - palavras comuns em letras de músicas brasileiras
+        const PORTUGUESE_WORDS = [
+            // 💕 Emoções e Sentimentos
+            "amor", "coração", "sonho", "fogo", "sol", "lua", "sempre", "eterno",
+            "louco", "lindo", "bonito", "sozinho", "feliz", "triste", "livre", "doce",
+            "vivo", "quebrado", "forte", "jovem", "perdido", "achado", "perfeito", "errado",
+            "certo", "ciúme", "orgulho", "medo", "corajoso", "cansado", "frio", "quente",
+            "doente", "curado", "grato", "abençoado", "saudade", "paixão", "carinho", "ternura",
+            "alegria", "tristeza", "dor", "prazer", "desejo", "vontade", "ansiedade", "calma",
+            "raiva", "ódio", "inveja", "gratidão", "esperança", "desespero", "angústia", "paz",
+            
+            // 🏃 Ações
+            "dançar", "cantar", "voar", "correr", "chorar", "sorrir", "beijar", "abraçar",
+            "acreditar", "lembrar", "esquecer", "cair", "subir", "brilhar", "queimar", "quebrar",
+            "ficar", "esperar", "andar", "pular", "tocar", "sentir", "respirar", "lutar",
+            "sobreviver", "rezar", "brincar", "falar", "chamar", "gritar", "sussurrar", "ouvir",
+            "ver", "olhar", "esconder", "buscar", "perseguir", "pegar", "jogar", "dar",
+            "roubar", "empurrar", "puxar", "carregar", "soltar", "começar", "parar", "abrir",
+            "fechar", "trancar", "bater", "dormir", "acordar", "descansar", "trabalhar", "tentar",
+            "falhar", "ganhar", "perder", "aprender", "ensinar", "saber", "pensar", "sonhar",
+            "querer", "precisar", "encontrar", "partir", "voltar", "fugir", "salvar", "curar",
+            "machucar", "doer", "amar", "odiar", "perdoar", "mentir", "jurar", "prometer",
+            "casar", "separar", "namorar", "trair", "confiar", "duvidar", "arriscar", "apostar",
+            
+            // 🌙 Natureza e Tempo
+            "lua", "estrela", "céu", "mar", "oceano", "rio", "montanha", "verão",
+            "inverno", "noite", "dia", "manhã", "tarde", "ontem", "amanhã", "hoje",
+            "amanhecer", "entardecer", "anoitecer", "madrugada", "tempestade", "vento", "flor", "chuva",
+            "neve", "primavera", "outono", "nuvem", "neblina", "arco-íris", "trovão", "relâmpago",
+            "onda", "maré", "praia", "areia", "deserto", "floresta", "mata", "jardim",
+            "árvore", "folha", "grama", "rosa", "girassol", "margarida", "pássaro", "borboleta",
+            "abelha", "lobo", "leão", "tigre", "urso", "águia", "peixe", "tubarão",
+            "baleia", "golfinho", "cavalo", "cachorro", "gato", "cobra", "minuto", "hora",
+            "semana", "mês", "ano", "década", "século", "momento", "segundo", "instante",
+            
+            // 👫 Relacionamentos e Pessoas
+            "bebê", "neném", "querido", "querida", "anjo", "diabo", "amigo", "amiga",
+            "estranho", "amante", "herói", "garota", "menina", "garoto", "menino", "homem",
+            "mulher", "mãe", "pai", "filho", "filha", "rei", "rainha", "irmão",
+            "irmã", "família", "marido", "esposa", "namorado", "namorada", "parceiro", "parceira",
+            "inimigo", "rival", "chefe", "patrão", "trabalhador", "professor", "aluno", "médico",
+            "enfermeiro", "soldado", "guerreiro", "lutador", "dançarino", "cantor", "cantora", "jogador",
+            "sonhador", "tolo", "bobo", "gênio", "santo", "pecador", "vítima", "sobrevivente",
+            "vencedor", "perdedor", "príncipe", "princesa", "cavaleiro", "malandro", "bandido", "ladrão",
+            "inocente", "culpado", "mano", "mina", "brother", "mozão", "mozinha", "gata",
+            "gato", "morena", "moreno", "pretinha", "negão", "branquinha", "loira", "ruiva",
+            "vovó", "vovô", "tio", "tia", "primo", "prima", "sobrinho", "neto",
+            
+            // 🏠 Lugares e Coisas
+            "casa", "lar", "rua", "cidade", "mundo", "paraíso", "inferno", "diamante",
+            "ouro", "prata", "porta", "janela", "ponte", "carro", "trem", "avião",
+            "cama", "quarto", "sala", "parede", "chão", "teto", "escada", "corredor",
+            "igreja", "escola", "hospital", "prisão", "cadeia", "castelo", "palácio", "torre",
+            "bar", "boteco", "clube", "boate", "balada", "restaurante", "hotel", "motel",
+            "estação", "aeroporto", "porto", "espelho", "retrato", "foto", "carta", "livro",
+            "página", "telefone", "celular", "rádio", "televisão", "computador", "guitarra", "violão",
+            "piano", "bateria", "tambor", "sanfona", "pandeiro", "cavaquinho", "anel", "aliança",
+            "corrente", "cordão", "coroa", "espada", "arma", "bala", "faca", "navalha",
+            "vestido", "camisa", "blusa", "sapato", "chinelo", "chapéu", "boné", "jaqueta",
+            "calça", "saia", "biquíni", "bota", "tênis", "garrafa", "copo", "taça",
+            "mesa", "cadeira", "sofá", "banco", "travesseiro", "colchão", "lençol", "cobertor",
+            "vela", "lamparina", "luz", "sombra", "escuridão", "chama", "fumaça", "cinza",
+            "favela", "morro", "quebrada", "comunidade", "beco", "viela", "esquina", "calçada",
+            
+            // ✨ Abstrato e Musical
+            "tempo", "vida", "morte", "alma", "espírito", "magia", "destino", "verdade",
+            "mentira", "esperança", "fé", "glória", "poder", "força", "música", "ritmo",
+            "melodia", "batida", "som", "silêncio", "barulho", "grito", "sussurro", "eco",
+            "dinheiro", "grana", "bufunfa", "festa", "jogo", "aposta", "história", "conto",
+            "segredo", "mistério", "promessa", "jura", "chance", "mudança", "transformação", "revolução",
+            "liberdade", "prisão", "paz", "guerra", "batalha", "briga", "vitória", "derrota",
+            "luta", "triunfo", "conquista", "fracasso", "sucesso", "fama", "glória", "vergonha",
+            "culpa", "arrependimento", "remorso", "perdão", "vingança", "justiça", "injustiça", "lei",
+            "memória", "lembrança", "recordação", "futuro", "passado", "presente", "história", "lenda",
+            "sorte", "azar", "destino", "sina", "karma", "bênção", "maldição", "milagre",
+            "maravilha", "surpresa", "susto", "choque", "impacto", "emoção", "sentimento", "sensação",
+            "beleza", "feiura", "graça", "charme", "estilo", "moda", "arte", "poesia",
+            "cor", "forma", "palavra", "letra", "voz", "canto", "canção", "verso",
+            "refrão", "energia", "vibração", "sintonia", "conexão", "união", "separação", "distância",
+            
+            // 🎉 Festa e Diversão
+            "noitada", "balada", "rolê", "curtição", "diversão", "alegria", "animação", "agito",
+            "bebida", "drink", "vinho", "cerveja", "champanhe", "vodka", "whisky", "cachaça",
+            "caipirinha", "batida", "dose", "gole", "brinde", "ressaca", "embriagado", "bêbado",
+            "cigarro", "fumaça", "baseado", "beck", "erva", "pó", "droga", "vício",
+            "loucura", "insanidade", "adrenalina", "êxtase", "prazer", "tesão", "sedução", "tentação",
+            
+            // 💋 Corpo e Sensações
+            "corpo", "lábio", "boca", "língua", "olho", "olhar", "mão", "dedo",
+            "braço", "perna", "pé", "joelho", "ombro", "pescoço", "cabelo", "rosto",
+            "face", "pele", "suor", "lágrima", "sangue", "osso", "carne", "músculo",
+            "nervo", "veia", "pulso", "batimento", "respiração", "suspiro", "gemido", "grito",
+            "sorriso", "gargalhada", "beijo", "abraço", "toque", "carinho", "afago", "carícia",
+            "peito", "seio", "barriga", "cintura", "quadril", "bunda", "costas", "nuca",
+            
+            // 🇧🇷 Brasileiro / Gírias
+            "saudade", "xodó", "dengo", "chamego", "aconchego", "quentura", "molejo", "ginga",
+            "suingue", "balanço", "rebolado", "axé", "forró", "samba", "pagode", "funk",
+            "brega", "sofrência", "piseiro", "arrocha", "sertanejo", "modão", "viola", "sanfona",
+            "berimbau", "atabaque", "maracatu", "frevo", "baião", "xote", "vanerão", "lambada",
+            "mulata", "brasileira", "carioca", "paulista", "baiana", "nordestina", "mineira", "gaúcha",
+            "jeitinho", "malícia", "safadeza", "sacanagem", "putaria", "bagaceira", "zoeira", "zueira",
+            "marra", "neurose", "treta", "papo", "conversa", "lábia", "cantada", "flerte",
+            "paquera", "ficada", "pegação", "namoro", "casório", "aliança", "compromisso", "término"
         ];
 
         // DIFFICULTY SETTINGS - Change the time (in seconds) for each level
@@ -84,16 +298,13 @@
             hard:   { time: 10, label: "Hard (10s)",   color: "from-red-500 to-pink-500" }
         };
 
-        // GAME TITLE - Change the name of your game!
-        const GAME_TITLE = "🎵 Song Word";
-        const GAME_SUBTITLE = "Sing a song with the word!";
-
         // ============================================================
         // 🎮 GAME LOGIC - (More advanced editing below)
         // ============================================================
 
         function SongWordGame() {
             const [gameState, setGameState] = useState('menu');
+            const [language, setLanguage] = useState(null); // null = language selection, 'en' or 'pt'
             const [currentWord, setCurrentWord] = useState('');
             const [timeLeft, setTimeLeft] = useState(20);
             const [difficulty, setDifficulty] = useState('medium');
@@ -103,7 +314,13 @@
             const [showBounce, setShowBounce] = useState(false);
             const timerRef = useRef(null);
 
-            // Text-to-speech
+            // Get current word list based on language
+            const SONG_WORDS = language === 'pt' ? PORTUGUESE_WORDS : ENGLISH_WORDS;
+            
+            // Get UI text based on language
+            const t = UI_TEXT[language] || UI_TEXT.en;
+
+            // Text-to-speech with language support
             const speakWord = useCallback((word) => {
                 if ('speechSynthesis' in window) {
                     window.speechSynthesis.cancel();
@@ -111,11 +328,12 @@
                     utterance.rate = 0.8;
                     utterance.pitch = 1;
                     utterance.volume = 1;
+                    utterance.lang = language === 'pt' ? 'pt-BR' : 'en-US';
                     utterance.onstart = () => setIsSpeaking(true);
                     utterance.onend = () => setIsSpeaking(false);
                     window.speechSynthesis.speak(utterance);
                 }
-            }, []);
+            }, [language]);
 
             // Get random word
             const getNewWord = useCallback(() => {
@@ -148,8 +366,9 @@
                     setGameState('timesup');
                     setScore(s => ({ ...s, rounds: s.rounds + 1 }));
                     if ('speechSynthesis' in window) {
-                        const utterance = new SpeechSynthesisUtterance("Time's up!");
+                        const utterance = new SpeechSynthesisUtterance(language === 'pt' ? "Tempo esgotado!" : "Time's up!");
                         utterance.rate = 1.2;
+                        utterance.lang = language === 'pt' ? 'pt-BR' : 'en-US';
                         window.speechSynthesis.speak(utterance);
                     }
                 }
@@ -176,6 +395,7 @@
                 setScore({ correct: 0, rounds: 0 });
                 setUsedWords(new Set());
                 setCurrentWord('');
+                setLanguage(null); // Go back to language selection
             };
 
             const getTimerColor = () => {
@@ -191,16 +411,45 @@
                 <div className="min-h-screen bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 flex items-center justify-center p-4">
                     <div className="w-full max-w-md">
                         
-                        {/* MENU */}
-                        {gameState === 'menu' && (
+                        {/* LANGUAGE SELECTION */}
+                        {language === null && (
                             <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 text-center shadow-2xl border border-white/20">
                                 <div className="mb-8">
-                                    <h1 className="text-4xl font-bold text-white mb-2">{GAME_TITLE}</h1>
-                                    <p className="text-purple-200">{GAME_SUBTITLE}</p>
+                                    <h1 className="text-4xl font-bold text-white mb-2">🎵 Song Word</h1>
+                                    <h2 className="text-2xl font-bold text-white mb-1">🎵 Palavra Cantada</h2>
+                                    <p className="text-purple-200 mt-4">Choose your language / Escolha seu idioma</p>
+                                </div>
+                                
+                                <div className="space-y-4">
+                                    <button
+                                        onClick={() => setLanguage('en')}
+                                        className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white text-xl font-bold py-5 px-8 rounded-2xl hover:from-blue-600 hover:to-indigo-600 transition-all transform hover:scale-105 shadow-lg active:scale-95 flex items-center justify-center gap-3"
+                                    >
+                                        <span className="text-3xl">🇺🇸</span>
+                                        <span>English</span>
+                                    </button>
+                                    
+                                    <button
+                                        onClick={() => setLanguage('pt')}
+                                        className="w-full bg-gradient-to-r from-green-500 to-yellow-500 text-white text-xl font-bold py-5 px-8 rounded-2xl hover:from-green-600 hover:to-yellow-600 transition-all transform hover:scale-105 shadow-lg active:scale-95 flex items-center justify-center gap-3"
+                                    >
+                                        <span className="text-3xl">🇧🇷</span>
+                                        <span>Português Brasileiro</span>
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* MENU */}
+                        {language !== null && gameState === 'menu' && (
+                            <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 text-center shadow-2xl border border-white/20">
+                                <div className="mb-8">
+                                    <h1 className="text-4xl font-bold text-white mb-2">{t.gameTitle}</h1>
+                                    <p className="text-purple-200">{t.gameSubtitle}</p>
                                 </div>
                                 
                                 <div className="mb-8">
-                                    <h2 className="text-white text-lg mb-4">Select Difficulty</h2>
+                                    <h2 className="text-white text-lg mb-4">{t.selectDifficulty}</h2>
                                     <div className="flex flex-col sm:flex-row gap-2 justify-center">
                                         {Object.entries(DIFFICULTY_SETTINGS).map(([key, { label, color }]) => (
                                             <button
@@ -212,7 +461,7 @@
                                                         : 'bg-white/20 text-white hover:bg-white/30'
                                                 }`}
                                             >
-                                                {label}
+                                                {t[key]} ({DIFFICULTY_SETTINGS[key].time}s)
                                             </button>
                                         ))}
                                     </div>
@@ -222,34 +471,42 @@
                                     onClick={startRound}
                                     className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xl font-bold py-4 px-8 rounded-2xl hover:from-pink-600 hover:to-purple-600 transition-all transform hover:scale-105 shadow-lg active:scale-95"
                                 >
-                                    🎤 Start Game
+                                    {t.startGame}
                                 </button>
                                 
                                 <div className="mt-8 text-purple-200 text-sm bg-white/5 rounded-2xl p-4">
-                                    <h3 className="font-semibold mb-3 text-white">How to Play:</h3>
+                                    <h3 className="font-semibold mb-3 text-white">{t.howToPlay}</h3>
                                     <ol className="text-left space-y-2">
                                         <li className="flex items-start gap-2">
                                             <span className="bg-purple-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs flex-shrink-0 mt-0.5">1</span>
-                                            <span>A word will appear and be spoken aloud</span>
+                                            <span>{t.step1}</span>
                                         </li>
                                         <li className="flex items-start gap-2">
                                             <span className="bg-purple-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs flex-shrink-0 mt-0.5">2</span>
-                                            <span>Sing any song containing that word!</span>
+                                            <span>{t.step2}</span>
                                         </li>
                                         <li className="flex items-start gap-2">
                                             <span className="bg-purple-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs flex-shrink-0 mt-0.5">3</span>
-                                            <span>Other players judge if you got it right</span>
+                                            <span>{t.step3}</span>
                                         </li>
                                         <li className="flex items-start gap-2">
                                             <span className="bg-purple-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs flex-shrink-0 mt-0.5">4</span>
-                                            <span>Beat the timer to score points!</span>
+                                            <span>{t.step4}</span>
                                         </li>
                                     </ol>
                                 </div>
 
                                 <p className="mt-4 text-purple-300/60 text-xs">
-                                    {SONG_WORDS.length} words available
+                                    {SONG_WORDS.length} {t.wordsAvailable}
                                 </p>
+                                
+                                {/* Change language button */}
+                                <button
+                                    onClick={() => setLanguage(null)}
+                                    className="mt-4 text-purple-300 hover:text-white text-sm transition-colors"
+                                >
+                                    {language === 'pt' ? '🇧🇷 Mudar idioma' : '🇺🇸 Change language'}
+                                </button>
                             </div>
                         )}
 
@@ -283,7 +540,7 @@
 
                                 {/* Word Display */}
                                 <div className="mb-8">
-                                    <p className="text-purple-200 text-lg mb-2">Sing a song with:</p>
+                                    <p className="text-purple-200 text-lg mb-2">{t.singASongWith}</p>
                                     <h2 className={`text-5xl font-bold text-white mb-4 ${showBounce ? 'bounce-in' : ''} ${isSpeaking ? 'word-glow' : ''}`}>
                                         "{currentWord}"
                                     </h2>
@@ -291,7 +548,7 @@
                                         onClick={() => speakWord(currentWord)}
                                         className="text-purple-300 hover:text-white transition-colors text-lg"
                                     >
-                                        🔊 Hear again
+                                        {t.hearAgain}
                                     </button>
                                 </div>
 
@@ -301,18 +558,14 @@
                                         onClick={handleSkip}
                                         className="flex-1 bg-gradient-to-r from-red-500 to-orange-500 text-white py-4 px-6 rounded-2xl font-bold hover:from-red-600 hover:to-orange-600 transition-all active:scale-95 shadow-lg"
                                     >
-                                        ⏭️ Skip
+                                        {t.skip}
                                     </button>
                                     <button
                                         onClick={handleCorrect}
                                         className="flex-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white py-4 px-6 rounded-2xl font-bold hover:from-green-600 hover:to-emerald-600 transition-all active:scale-95 shadow-lg"
                                     >
-                                        ✅ Got It!
+                                        {t.gotIt}
                                     </button>
-                                </div>
-
-                                <div className="mt-6 text-purple-200 text-lg">
-                                    Score: <span className="font-bold text-white">{score.correct}</span> / {score.rounds}
                                 </div>
                             </div>
                         )}
@@ -321,8 +574,8 @@
                         {gameState === 'timesup' && (
                             <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 text-center shadow-2xl border border-white/20">
                                 <div className="text-6xl mb-4 bounce-in">⏰</div>
-                                <h2 className="text-3xl font-bold text-white mb-2">Time's Up!</h2>
-                                <p className="text-purple-200 mb-2">The word was:</p>
+                                <h2 className="text-3xl font-bold text-white mb-2">{t.timesUp}</h2>
+                                <p className="text-purple-200 mb-2">{t.theWordWas}</p>
                                 <h3 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400 mb-8">
                                     "{currentWord}"
                                 </h3>
@@ -335,29 +588,22 @@
                                         <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                                             <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
                                         </svg>
-                                        Find Songs on Spotify
+                                        {t.findOnSpotify}
                                     </button>
 
                                     <button
                                         onClick={startRound}
                                         className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white py-4 px-6 rounded-2xl font-bold hover:from-pink-600 hover:to-purple-600 transition-all active:scale-95"
                                     >
-                                        🎵 Next Word
+                                        {t.nextWord}
                                     </button>
 
                                     <button
                                         onClick={resetGame}
                                         className="w-full bg-white/20 text-white py-3 px-6 rounded-2xl font-medium hover:bg-white/30 transition-all active:scale-95"
                                     >
-                                        🏠 Back to Menu
+                                        {t.backToMenu}
                                     </button>
-                                </div>
-
-                                <div className="mt-6 bg-white/10 rounded-xl p-4">
-                                    <p className="text-purple-200 text-sm">Current Score</p>
-                                    <p className="text-4xl font-bold text-white">
-                                        {score.correct} <span className="text-purple-300 text-2xl">/ {score.rounds}</span>
-                                    </p>
                                 </div>
                             </div>
                         )}
